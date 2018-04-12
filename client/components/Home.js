@@ -6,7 +6,6 @@ import EmployeeActions from '../actions/employeeActions';
 class Home extends Component {
     constructor(props, context) {
         super(props, context);
-
     }
 
     componentWillMount() {
@@ -20,15 +19,19 @@ class Home extends Component {
     }
 
     render() {
-        let cities = [];
-        let city;
+        // let cities = [];
+        // let city;
 
-        let cityList = this.props.directory.get('employees').map((employee, i) => {
-            city = employee.get('address').get('city');
-            cities.push(city);
-        })
+        // let cityList = this.props.directory.get('employees').map((employee, i) => {
+        //     city = employee.get('address').get('city');
+        //     cities.push(city);
+        // })
 
-        let cityOptions = cities.sort().map((city,i) => {
+        // let cityOptions = cities.sort().map((city, i) => {
+        //     return <option key={i} value={city}>{city}</option>
+        // })
+
+        let cityOptions = this.props.directory.get('cities').map((city, i) => {
             return <option key={i} value={city}>{city}</option>
         })
 
@@ -65,9 +68,11 @@ class Home extends Component {
                 <div className="row" style={{ marginTop: 20, marginLeft: 4 }}>
                     <select
                         name="city"
-                        className="form-control col-lg-5" >
-                        {<option value=''>Filter by City</option>}
-                        {cityOptions} 
+                        className="form-control col-lg-3"
+                        onChange={(e) => this.props.dispatch(EmployeeActions.updateCityFilterAsync(e.target.value))}
+                    >
+                        {<option value='All'>Filter by City</option>}
+                        {cityOptions}
 
                     </select>
 
@@ -77,6 +82,11 @@ class Home extends Component {
                 <div className="row" style={{ marginTop: 20 }}>
                     {employees}
                 </div>
+
+                <div className={this.props.directory.get('cityFilter') !== "All" ? '' : 'd-none'}>
+                    <a href="/">Back to list</a>
+                </div>
+
             </div>
         );
     }

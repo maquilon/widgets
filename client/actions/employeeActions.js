@@ -12,16 +12,36 @@ class EmployeeActions {
         }
     }
 
+    static updateCityFilter(city) {
+        return {
+            type: Constants.CITY_FILTER,
+            city
+        }
+    }
+
+    static loadCities(cities) {
+        return {
+            type: Constants.LOAD_CITIES,
+            cities
+        }
+    }
     // ===================================================================== //
     // ========================== API: ASYNC CALLS ========================= //
     // ===================================================================== //
- 
     static loadEmployeesAsync() {
         return function (dispatch) {
-
+            let employees;
+            let cities = [];
             axios.get(base)
                 .then(function (response) {
-                    dispatch(EmployeeActions.loadEmployees(response.data.sort(compare)));
+                    employees = response.data;
+                    dispatch(EmployeeActions.loadEmployees(employees.sort(compare)));
+                })
+                .then(function (response) {
+                    employees.forEach(employee => {
+                        cities.push(employee.address.city)
+                    });
+                    dispatch(EmployeeActions.loadCities(cities.sort()));
                 })
                 .catch(function (error) {
                     dispatch(addNotification({ title: 'Error', message: 'Error loading Employees ' + error, level: 'error', autoDismiss: 0 }));
@@ -29,21 +49,34 @@ class EmployeeActions {
         };
     }
 
-
+    static updateCityFilterAsync(city) {
+        return function (dispatch) {
+            axios.get(base)
+                .then(function (response) {
+                    let obj = [];
+                    obj.push(_.find(response.data, function (obj) { return obj.address.city === city; }));
+                    dispatch(EmployeeActions.updateCityFilter(city));
+                    if (city === 'All') { dispatch(EmployeeActions.loadEmployees(response.data)) } else { dispatch(EmployeeActions.loadEmployees(obj)); }
+                })
+                .catch(function (error) {
+                    dispatch(addNotification({ title: 'Error', message: 'Error loading Employees filter by city ' + error, level: 'error', autoDismiss: 0 }));
+                });
+        };
+    }
 }
 
 function compare(a, b) {
     // Use toUpperCase() to ignore character casing
     const lastNameA = a.lastName.toUpperCase();
     const lastNameB = b.lastName.toUpperCase();
-  
+
     let comparison = 0;
     if (lastNameA > lastNameB) {
-      comparison = 1;
+        comparison = 1;
     } else if (lastNameA < lastNameB) {
-      comparison = -1;
+        comparison = -1;
     }
     return comparison;
-  }
+}
 
 export default EmployeeActions;
