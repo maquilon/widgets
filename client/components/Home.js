@@ -12,6 +12,7 @@ class Home extends Component {
         this.props.dispatch(EmployeeActions.loadEmployeesAsync());
     }
 
+
     unitTags(tags) {
         // List of unique tag values
         let uniqueTagList = tags.toJS().filter((x, i, a) => a.indexOf(x) == i);
@@ -36,8 +37,9 @@ class Home extends Component {
                                     <h6 className="card-text">{employee.get('phone')}</h6>
                                     <h6 className="card-text">{employee.get('address').get('city')}, {employee.get('address').get('state')} </h6>
 
-                                    {this.unitTags(employee.get('tags')).map((tag, i) => {
-                                        return <span className="badge badge-primary" style={{ marginRight: '7' }}>{tag}</span>})
+                                    {this.unitTags(employee.get('tags')).map((tag, y) => {
+                                        return <span key={y} className="badge badge-primary" style={{ marginRight: 7 }}>{tag}</span>
+                                    })
                                     }
                                 </div>
                             </div>
@@ -46,8 +48,23 @@ class Home extends Component {
                 </div>
             </div>);
         return (
-            <div className="row" style={{ marginTop: '20' }}>
-                {employees}
+            <div>
+                <div className="row">
+                    <select
+                        name="year"
+                        className="form-control col-md-6"
+                    >
+                        {<option value=''>Please Select..</option>}
+
+                    </select>
+
+                </div>
+
+                {/* Display the list of employee cards */}
+
+                <div className="row" style={{ marginTop: 20 }}>
+                    {employees}
+                </div>
             </div>
         );
     }

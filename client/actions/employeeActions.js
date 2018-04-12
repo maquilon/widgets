@@ -18,20 +18,19 @@ class EmployeeActions {
  
     static loadEmployeesAsync() {
         return function (dispatch) {
+
             axios.get(base)
                 .then(function (response) {
-
                     dispatch(EmployeeActions.loadEmployees(response.data.sort(compare)));
                 })
                 .catch(function (error) {
-                    dispatch(addNotification({ title: 'Error', message: 'Error loading Employees ' + response, level: 'error', autoDismiss: 0 }));
+                    dispatch(addNotification({ title: 'Error', message: 'Error loading Employees ' + error, level: 'error', autoDismiss: 0 }));
                 });
         };
     }
 
 
 }
-
 
 function compare(a, b) {
     // Use toUpperCase() to ignore character casing

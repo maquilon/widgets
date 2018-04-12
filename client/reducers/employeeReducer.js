@@ -5,6 +5,7 @@ import Constants from '../constants';
 const directoryInitialState = {
     directory: Immutable.fromJS({
         employees: [],
+        cities: []
     })
 };
 
