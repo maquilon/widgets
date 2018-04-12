@@ -12,23 +12,30 @@ class Home extends Component {
         this.props.dispatch(EmployeeActions.loadEmployeesAsync());
     }
 
+    unitTags(tags) {
+        // List of unique tag values
+        let tagList = tags.toJS().filter((x,i,a) => a.indexOf(x) == i);
+        
+    }
+
     render() {
         let employees = this.props.directory.get('employees').map((employee, i) =>
-            <div className="col-lg-6">
+            <div  key={i} className="col-lg-6">
                 <div className="bs-component">
-                    <div key={i} className="card border-dark mb-3" style={{ maxWidth: '40rem' }}>
+                    <div className="card border-dark mb-3" style={{ maxWidth: '40rem' }}>
                         <div className="card-header">
                             <h4 className="card-title"> {employee.get('lastName')} {employee.get('firstName')} </h4>
                         </div>
                         <div className="card-body">
                             <div className="row">
                                 <div className="col-lg-4">
-                                    <img src={employee.get('avatar')} className="rounded-circle" alt={employee.get('lastName')} />
+                                    <img  src={employee.get('avatar')} className="rounded-circle" alt={employee.get('lastName')} />
                                 </div>
                                 <div className="col-lg-8">
-                                    <h5 className="card-text">Dark card title</h5>
-                                    <h6 className="card-text">Some quick example text to.</h6>
-                                    <h6 className="card-text">Some quick example text to.</h6>
+                                    <h5 className="card-text">{employee.get('email')}</h5>
+                                    <h6 className="card-text">{employee.get('phone')}</h6>
+                                    <h6 className="card-text">{employee.get('address').get('city')}</h6>
+                                    { this.unitTags(employee.get('tags')) } 
                                 </div>
                             </div>
                         </div>
@@ -50,4 +57,3 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps)(Home);
-
