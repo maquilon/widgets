@@ -12,6 +12,13 @@ class EmployeeActions {
         }
     }
 
+    static loadEmployee(employee) {
+        return {
+            type: Constants.LOAD_EMPLOYEE,
+            employee
+        }
+    }
+
     static updateCityFilter(city) {
         return {
             type: Constants.CITY_FILTER,
@@ -47,6 +54,20 @@ class EmployeeActions {
                     dispatch(addNotification({ title: 'Error', message: 'Error loading Employees ' + error, level: 'error', autoDismiss: 0 }));
                 });
         };
+    }
+
+    static loadEmployeeAsync(id) {
+        console.log('id --->', id)
+        return function (dispatch) {
+            axios.get(base + id)
+                .then(function (response) {
+                    console.log('response -->', response.data)
+                    dispatch(EmployeeActions.loadEmployee(response.data));
+                })
+                .catch(function (error) {
+                    dispatch(addNotification({ title: 'Error', message: 'Error loading Employee' + error, level: 'error', autoDismiss: 0 }));
+                });
+        }
     }
 
     static updateCityFilterAsync(city) {

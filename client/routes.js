@@ -3,11 +3,11 @@ import { Route, IndexRoute } from 'react-router';
 
 import AppContainer from './components/AppContainer';
 import Home from './components/Home';
-import AboutUs from './components/AboutUs';
+import EmployeeDetail from './components/employeeDetail';
 
 export default (
     <Route path="/" component={AppContainer}>
         <IndexRoute component={Home} />
-        <Route path="aboutUs" component={AboutUs} />         
+        <Route path="employeeDetail" component={EmployeeDetail} />       
     </Route>
 );

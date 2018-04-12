@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import EmployeeActions from '../actions/employeeActions';
 
-
 class Home extends Component {
     constructor(props, context) {
         super(props, context);
@@ -18,25 +17,18 @@ class Home extends Component {
         return uniqueTagList;
     }
 
+    showDetails(id) {
+        this.props.dispatch(EmployeeActions.loadEmployeeAsync(id))
+        window.location.href= "#/employeeDetail";
+    }
+
     render() {
-        // let cities = [];
-        // let city;
-
-        // let cityList = this.props.directory.get('employees').map((employee, i) => {
-        //     city = employee.get('address').get('city');
-        //     cities.push(city);
-        // })
-
-        // let cityOptions = cities.sort().map((city, i) => {
-        //     return <option key={i} value={city}>{city}</option>
-        // })
-
         let cityOptions = this.props.directory.get('cities').map((city, i) => {
             return <option key={i} value={city}>{city}</option>
         })
 
         let employees = this.props.directory.get('employees').map((employee, i) =>
-            <div key={i} className="col-lg-6">
+            <div style={{ cursor: 'pointer' }} onClick={() => this.showDetails(employee.get('id'))} key={i} className="col-lg-6">
                 <div className="bs-component">
                     <div className="card border-dark mb-3" style={{ maxWidth: '40rem' }}>
                         <div className="card-header">
@@ -45,7 +37,7 @@ class Home extends Component {
                         <div className="card-body">
                             <div className="row">
                                 <div className="col-lg-4">
-                                    <img src={employee.get('avatar')} className="rounded-circle" alt={employee.get('lastName')} />
+                                    <img src={employee.get('avatar')} className="rounded-circle" alt={employee.get('lastName')}  />                                   
                                 </div>
                                 <div className="col-lg-8">
                                     <h5 className="card-text">{employee.get('email')}</h5>
@@ -54,8 +46,7 @@ class Home extends Component {
 
                                     {this.unitTags(employee.get('tags')).map((tag, y) => {
                                         return <span key={y} className="badge badge-primary" style={{ marginRight: 7 }}>{tag}</span>
-                                    })
-                                    }
+                                    })}
                                 </div>
                             </div>
                         </div>

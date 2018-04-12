@@ -5,6 +5,7 @@ import Constants from '../constants';
 const directoryInitialState = {
     directory: Immutable.fromJS({
         employees: [],
+        employee: [],
         cities: [],
         cityFilter: 'All'
     })
@@ -15,6 +16,10 @@ function employeeReducer(state = directoryInitialState.directory, action) {
 
         case Constants.LOAD_EMPLOYEES:
             state = state.updateIn(['employees'], (data) => data = Immutable.fromJS(action.employees));
+            return state;
+
+        case Constants.LOAD_EMPLOYEE:
+            state = state.updateIn(['employee'], (data) => data = Immutable.fromJS(action.employee));
             return state;
 
         case Constants.CITY_FILTER:
