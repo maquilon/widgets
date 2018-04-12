@@ -13,48 +13,41 @@ class Home extends Component {
     }
 
     render() {
-
+        let employees = this.props.directory.get('employees').map((employee, i) =>
+            <div className="col-lg-6">
+                <div className="bs-component">
+                    <div key={i} className="card border-dark mb-3" style={{ maxWidth: '40rem' }}>
+                        <div className="card-header">
+                            <h4 className="card-title"> {employee.get('lastName')} {employee.get('firstName')} </h4>
+                        </div>
+                        <div className="card-body">
+                            <div className="row">
+                                <div className="col-lg-4">
+                                    <img src={employee.get('avatar')} className="rounded-circle" alt={employee.get('lastName')} />
+                                </div>
+                                <div className="col-lg-8">
+                                    <h5 className="card-text">Dark card title</h5>
+                                    <h6 className="card-text">Some quick example text to.</h6>
+                                    <h6 className="card-text">Some quick example text to.</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>);
         return (
             <div className="row" style={{ marginTop: '20' }}>
-
-                <div className="col-lg-6">
-                    <div className="bs-component">
-                        <div className="card border-dark mb-3" style={{ maxWidth: '40rem' }}>
-                            <div className="card-header">Header</div>
-                            <div className="card-body">
-                                <h4 className="card-title">Dark card title</h4>
-                                <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="col-lg-6">
-                    <div className="bs-component">
-                        <div className="card border-dark mb-3" style={{ maxWidth: '40rem' }}>
-                            <div className="card-header">Header</div>
-                            <div className="card-body">
-                                <h4 className="card-title">Dark card title</h4>
-                                <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            
-
-
+                {employees}
             </div>
-
-
-
         );
     }
 }
 
 function mapStateToProps(state) {
     return {
+        directory: state.directory
     };
 }
 
 export default connect(mapStateToProps)(Home);
+

@@ -2,13 +2,13 @@ import Immutable from 'immutable';
 import Constants from '../constants';
 
 // Employee Initial State
-const employeeInitialState = {
-    employee: Immutable.fromJS({
+const directoryInitialState = {
+    directory: Immutable.fromJS({
         employees: [],
     })
 };
 
-function employeeReducer(state =employeeInitialState.employee, action) {
+function employeeReducer(state = directoryInitialState.directory, action) {
     switch (action.type) {
 
         case Constants.LOAD_EMPLOYEES:
@@ -20,4 +20,4 @@ function employeeReducer(state =employeeInitialState.employee, action) {
     }
 }
 
-export { employeeReducer, employeeInitialState };
+export { employeeReducer, directoryInitialState };

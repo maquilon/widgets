@@ -6,7 +6,7 @@ import { employeeReducer } from './employeeReducer';
 const rootReducer = combineReducers({
     routing: routerReducer,
     notificationSystem: notificationReducer,
-    employee: employeeReducer
+    directory: employeeReducer
 });
 
 export default rootReducer;
