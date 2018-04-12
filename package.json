@@ -52,6 +52,6 @@
     "lodash": "^4.17.4",
     "react-loader": "^2.4.0",
     "react-notification-system": "^0.2.11",
-    "redux-thunk": "^2.1.0"
+    "redux-thunk": "^2.1.0",
   }
 }

@@ -14,28 +14,31 @@ class Home extends Component {
 
     unitTags(tags) {
         // List of unique tag values
-        let tagList = tags.toJS().filter((x,i,a) => a.indexOf(x) == i);
-        
+        let uniqueTagList = tags.toJS().filter((x, i, a) => a.indexOf(x) == i);
+        return uniqueTagList;
     }
 
     render() {
         let employees = this.props.directory.get('employees').map((employee, i) =>
-            <div  key={i} className="col-lg-6">
+            <div key={i} className="col-lg-6">
                 <div className="bs-component">
                     <div className="card border-dark mb-3" style={{ maxWidth: '40rem' }}>
                         <div className="card-header">
-                            <h4 className="card-title"> {employee.get('lastName')} {employee.get('firstName')} </h4>
+                            <h3 className="card-title"> {employee.get('lastName')} {employee.get('firstName')} </h3>
                         </div>
                         <div className="card-body">
                             <div className="row">
                                 <div className="col-lg-4">
-                                    <img  src={employee.get('avatar')} className="rounded-circle" alt={employee.get('lastName')} />
+                                    <img src={employee.get('avatar')} className="rounded-circle" alt={employee.get('lastName')} />
                                 </div>
                                 <div className="col-lg-8">
                                     <h5 className="card-text">{employee.get('email')}</h5>
                                     <h6 className="card-text">{employee.get('phone')}</h6>
-                                    <h6 className="card-text">{employee.get('address').get('city')}</h6>
-                                    { this.unitTags(employee.get('tags')) } 
+                                    <h6 className="card-text">{employee.get('address').get('city')}, {employee.get('address').get('state')} </h6>
+
+                                    {this.unitTags(employee.get('tags')).map((tag, i) => {
+                                        return <span className="badge badge-primary" style={{ marginRight: '7' }}>{tag}</span>})
+                                    }
                                 </div>
                             </div>
                         </div>
