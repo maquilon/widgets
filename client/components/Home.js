@@ -6,20 +6,32 @@ import EmployeeActions from '../actions/employeeActions';
 class Home extends Component {
     constructor(props, context) {
         super(props, context);
+
     }
 
     componentWillMount() {
         this.props.dispatch(EmployeeActions.loadEmployeesAsync());
     }
 
-
+    // List of unique tag values
     unitTags(tags) {
-        // List of unique tag values
         let uniqueTagList = tags.toJS().filter((x, i, a) => a.indexOf(x) == i);
         return uniqueTagList;
     }
 
     render() {
+        let cities = [];
+        let city;
+
+        let cityList = this.props.directory.get('employees').map((employee, i) => {
+            city = employee.get('address').get('city');
+            cities.push(city);
+        })
+
+        let cityOptions = cities.sort().map((city,i) => {
+            return <option key={i} value={city}>{city}</option>
+        })
+
         let employees = this.props.directory.get('employees').map((employee, i) =>
             <div key={i} className="col-lg-6">
                 <div className="bs-component">
@@ -47,21 +59,21 @@ class Home extends Component {
                     </div>
                 </div>
             </div>);
+
         return (
             <div>
-                <div className="row">
+                <div className="row" style={{ marginTop: 20, marginLeft: 4 }}>
                     <select
-                        name="year"
-                        className="form-control col-md-6"
-                    >
-                        {<option value=''>Please Select..</option>}
+                        name="city"
+                        className="form-control col-lg-5" >
+                        {<option value=''>Filter by City</option>}
+                        {cityOptions} 
 
                     </select>
 
                 </div>
 
                 {/* Display the list of employee cards */}
-
                 <div className="row" style={{ marginTop: 20 }}>
                     {employees}
                 </div>
