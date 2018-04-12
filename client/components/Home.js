@@ -21,7 +21,11 @@ class Home extends Component {
     showDetails(id) {
         this.props.dispatch(EmployeeActions.loadEmployeeAsync(id))
         // window.location.href= "employeeDetail";
+    }
 
+    displayLetter(employee) {
+        console.log('Letter -->',employee.get('lastName').charAt(0));
+        return <h6>5</h6>
     }
 
     render() {
@@ -59,16 +63,11 @@ class Home extends Component {
         return (
             <div>
                 <div className="row" style={{ marginTop: 20, marginLeft: 4 }}>
-                    <select
-                        name="city"
-                        className="form-control col-lg-3"
-                        onChange={(e) => this.props.dispatch(EmployeeActions.updateCityFilterAsync(e.target.value))}
-                    >
+                    <select name="city" className="form-control col-lg-3"
+                        onChange={(e) => this.props.dispatch(EmployeeActions.updateCityFilterAsync(e.target.value))} >
                         {<option value='All'>Filter by City</option>}
                         {cityOptions}
-
                     </select>
-
                 </div>
 
                 {/* Display the list of employee cards */}
