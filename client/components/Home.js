@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import EmployeeActions from '../actions/employeeActions';
 
+
 class Home extends Component {
     constructor(props, context) {
         super(props, context);
@@ -10,16 +11,17 @@ class Home extends Component {
     componentWillMount() {
         this.props.dispatch(EmployeeActions.loadEmployeesAsync());
     }
-
     // List of unique tag values
     unitTags(tags) {
         let uniqueTagList = tags.toJS().filter((x, i, a) => a.indexOf(x) == i);
         return uniqueTagList;
     }
 
+
     showDetails(id) {
         this.props.dispatch(EmployeeActions.loadEmployeeAsync(id))
-        window.location.href= "#/employeeDetail";
+        // window.location.href= "employeeDetail";
+
     }
 
     render() {

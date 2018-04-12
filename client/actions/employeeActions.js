@@ -1,6 +1,7 @@
 import axios from 'axios';
 import Constants from '../constants/';
 import { addNotification } from '../actions/notificationActions';
+import { browserHistory, Link } from 'react-router';
 
 const base = 'http://challenge-dev.starmarkcloud.com/users/';
 
@@ -57,12 +58,13 @@ class EmployeeActions {
     }
 
     static loadEmployeeAsync(id) {
-        console.log('id --->', id)
         return function (dispatch) {
             axios.get(base + id)
                 .then(function (response) {
-                    console.log('response -->', response.data)
                     dispatch(EmployeeActions.loadEmployee(response.data));
+                })
+                .then(function() {
+                    browserHistory.push('/employeeDetail');
                 })
                 .catch(function (error) {
                     dispatch(addNotification({ title: 'Error', message: 'Error loading Employee' + error, level: 'error', autoDismiss: 0 }));
