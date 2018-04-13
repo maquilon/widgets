@@ -6,6 +6,8 @@ import EmployeeActions from '../actions/employeeActions';
 class Home extends Component {
     constructor(props) {
         super(props);
+
+        this.keyCounter = 9999;
     }
 
     componentWillMount() {
@@ -18,20 +20,13 @@ class Home extends Component {
         return uniqueTagList;
     }
 
+    // Action to load the selected employee
     showDetails(id) {
-        console.log('into showDetails')
         this.props.dispatch(EmployeeActions.loadEmployeeAsync(id))
-        // window.location.href= "employeeDetail";
-    }
-
-    displayLetter(employee) {
-        console.log('Letter -->', employee.get('lastName').charAt(0));
-        return <h6>5</h6>
     }
 
     render() {
-        var keyCounter = 9999;
-
+        // Getting the cities to show as options on dropdown
         let cityOptions = this.props.directory.get('cities').map((city, i) => {
             return <option key={i} value={city}>{city}</option>
         })
@@ -48,11 +43,12 @@ class Home extends Component {
             groups[initial].push(employee)
         })
 
+        // Creating groups by first letter of the last name
         Object.keys(groups).forEach((key) => {
-            directory.push(<div className="col-lg-12" style={{ marginTop: 10, marginBottom: 10 }} key={keyCounter++}><h1>{key}</h1></div>)
+            directory.push(<div className="col-lg-12" style={{ marginTop: 10, marginBottom: 10 }} key={this.keyCounter++}><h1>{key}</h1></div>)
             groups[key].map((employee, i) => {
                 directory.push(
-                    <div key={keyCounter++} style={{ cursor: 'pointer' }} onClick={(e) => this.showDetails(employee.get('id'))} className="col-lg-6">
+                    <div key={this.keyCounter++} style={{ cursor: 'pointer' }} onClick={(e) => this.showDetails(employee.get('id'))} className="col-lg-6">
                         <div className="bs-component">
                             <div className="card border-dark mb-3" style={{ maxWidth: '40rem' }}>
                                 <div className="card-header">

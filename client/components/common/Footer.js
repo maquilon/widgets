@@ -6,7 +6,9 @@ const Footer = () => {
     return (
         <div className="navbar-inverse navbar-fixed-bottom">
             <div className="container">
-                <p style={{ color: '#ffffff', font: 'Open Sans, Helvetica Neue', fontSize: '12px', padding: '10px 10px 10px 0px' }}> { currentDate } - Widget Inc. All rights Reserved</p>
+                <p style={{ color: '#ffffff', font: 'Open Sans, Helvetica Neue', fontSize: '12px', padding: '10px 10px 15px 0px' }}>
+                    {currentDate} - Widget Inc. All rights Reserved
+                </p>
             </div>
         </div>
     );
