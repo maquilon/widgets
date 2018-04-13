@@ -5,7 +5,7 @@
 
 <pre>
 <code>
-&gt; npm install
+    &gt; npm install
 </code>
 </pre>
 
@@ -13,6 +13,8 @@
 
 <pre>
 <code>
-    &gt; npm run start
+    &gt; npm start
 </code>
 </pre>
+
+<p>To view your project, go to: <a href="http://localhost:7775/" rel="nofollow">http://localhost:7775/</a></p>
