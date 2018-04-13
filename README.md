@@ -18,3 +18,5 @@
 </pre>
 
 <p>To view your project, go to: <a href="http://localhost:7775/" rel="nofollow">http://localhost:7775/</a></p>
+
+<p>Live demo, go to: <a href="http://maquilon.com/widget/" rel="nofollow">http://maquilon.com/widget/</a></p>
